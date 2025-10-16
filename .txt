@@ -1,0 +1,4 @@
+origin: [
+    "http://localhost:5173", // explicitly allow your frontend
+    "http://192.168.1.35:5173" // replace with your Mac’s local IP
+],
