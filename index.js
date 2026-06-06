@@ -12,7 +12,6 @@ import notificationRoutes from "./routes/notificationRoutes.js";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import messageRoutes from "./routes/messageRoutes.js";
-import e from "express-status-monitor";
 
 
 dotenv.config();
@@ -28,7 +27,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // replaces bodyParser.json()
-app.use(e());
 
 //Routes
 app.use("/api/users",userRoutes);

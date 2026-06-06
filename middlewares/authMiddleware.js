@@ -5,15 +5,18 @@ export const protect = async (req, res, next) => {
   let token;
 
   if (
-    req.headers.authorization && 
+    req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
     try {
       token = req.headers.authorization.split(" ")[1]; // Extract token
-      const jwtSecret = process.env.JWT_SECRET || "dev_secret_change_me";
+      const jwtSecret = process.env.JWT_SECRET;
+      if (!jwtSecret) {
+        throw new Error('JWT_SECRET environment variable is not set');
+      }
 
       // Verify token
-      const decoded = jwt.verify(token, jwtSecret);
+      const decoded = jwt.verify(token, jwtSecret, { algorithms: ['HS256'] });
 
       // Attach user to request (exclude password)
       req.user = await User.findById(decoded.id).select("-password");
